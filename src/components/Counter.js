@@ -1,8 +1,9 @@
 import React from 'react'
 
-function Counter() {
+function Counter({Counter}) {
   return (
-    <div>Counter
+    <div>
+      {Counter}
         
     </div>
   )
