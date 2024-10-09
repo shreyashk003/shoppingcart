@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import Header from './Header';
+import 'bootstrap-icons/font/bootstrap-icons.css'
 
 function Cart({ cartitems, setcartitems, grandtotal, setgrandtotal, counter, setcounter }) {
   const [message, setMessage] = useState("");
@@ -33,14 +34,14 @@ function Cart({ cartitems, setcartitems, grandtotal, setgrandtotal, counter, set
   };
 
   // Confirm order and send email
-  const confirmorder = () => {
+  const confirmorder = async () => {
     const to = 'shreyashkulkarni03@gmail.com';
     const subject = 'Order Confirmation';
 
     // Construct email body with HTML table of cart items
     let message1 = "<table border='1' style='border-collapse: collapse;'><thead><th>Item ID</th><th>Item Name</th><th>Item Price</th><th>Item Qtty</th><th>Amount</th></thead><tbody>";
     
-    cartitems.forEach(item => {
+    cartitems.map(item => {
       message1 += `<tr><td>${item.pid}</td><td>${item.pname}</td><td>${item.price}</td><td>${item.qtty}</td><td>${item.qtty * item.price}</td></tr>`;
     });
 
@@ -57,9 +58,9 @@ function Cart({ cartitems, setcartitems, grandtotal, setgrandtotal, counter, set
     };
 
     // Send the email via the backend
-    axios.post("http://localhost:9000/api/sendemail", payload)
+     axios.post("http://localhost:9000/api/sendemail", payload)
       .then(response => {
-        alert(response.data); // Alert the user with a success message
+        alert("Email sent"); // Alert the user with a success message
       })
       .catch(error => {
         console.log("Error while sending email: ", error);
@@ -74,20 +75,19 @@ function Cart({ cartitems, setcartitems, grandtotal, setgrandtotal, counter, set
 
   return (
     <div>
+
       <h1 style={{ textAlign: 'center' }}><b>Cart</b></h1>
       <div style={{ textAlign: 'center', marginBottom: '20px' }}>
-        <span className="badge bg-primary">
-          Items in Cart: {totalItemsInCart}
-        </span>
+        
       </div>
-      <ul style={{ listStyle: 'none' }} className='list-group'>
+      <ul style={{ listStyle: 'none' }} className='list-group w-100'>
         {cartitems.map(item => (
-          <li key={item.pid} className='list-group-item m-1'>
-            <span style={{ display: 'inline-block', width: '110px' }}>{item.pid}</span>
+          <li key={item.pid} className='list-group-item m-1 w-100'>
+            <span style={{ display: 'inline-block', width: '80px' }}>{item.pid}</span>
             <span style={{ display: 'inline-block', width: '110px' }}>{item.pname}</span>
-            <span style={{ display: 'inline-block', width: '100px' }}>{item.price} * {item.qtty} = {item.price * item.qtty}</span>
-            <span style={{ display: 'inline-block', width: '140px' }}>
-              <img src={item.imageUrl} width='115px' height='100px' alt='products' />
+            <span style={{ display: 'inline-block', width: '130px' }}>{item.price} * {item.qtty} = {item.price * item.qtty}</span>
+            <span style={{ display: 'inline-block', width: '120px' }}>
+              <img src={item.imageUrl} width='100px' height='100px' alt='products' />
             </span>
             <button className='btn btn-success m-1' onClick={() => increment(item)}>+</button>
             <button className='btn btn-warning m-1' onClick={() => decrement(item)}>-</button>

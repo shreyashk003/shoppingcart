@@ -38,7 +38,7 @@ function sendmail(to, sub, msg, callback) {
 }
 
 // Route to send email
-app.post('/api/sendemail', (req, res) => {
+app.post('/api/sendemail', async (req, res) => {
     const { to, subject, message } = req.body; // Use lowercase `to`, `subject`, `message` as per frontend
 
     console.log('Sending email to:', to, subject, message);
@@ -62,11 +62,23 @@ app.get('/api/getAllProducts', async (req, res) => {
     }
 });
 
+
 // Route to fetch all customers
 app.get('/api/getAllcustomer', async (req, res) => {
     try {
         const myCollection = myDB.collection("customer");
         const result = await myCollection.find({}).toArray();
+        res.send(result);
+    } catch (error) {
+        res.status(500).send({ message: "An error occurred", error });
+    }
+});
+app.post('/api/getusername', async (req, res) => {
+    const username=req.body.username
+    try {
+        const myCollection = myDB.collection("customer");
+        const result = await myCollection.find({username:username}).toArray();
+        console.log(result)
         res.send(result);
     } catch (error) {
         res.status(500).send({ message: "An error occurred", error });

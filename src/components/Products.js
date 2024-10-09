@@ -23,7 +23,7 @@ function Products({ cart, setcart, setgrandtotal, grandtotal }) {
   return (
     <div>
       <h2 style={{ textAlign: 'center' }}><b>Products</b></h2>
-      <ul style={{ listStyle: 'none' }}>
+      <ul style={{  listStyle: 'none' }}>
         {allProducts.map(product => (
           <li key={product.pid} className='list-group-item'>
             
