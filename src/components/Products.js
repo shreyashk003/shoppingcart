@@ -21,23 +21,20 @@ function Products({ cart, setcart, setgrandtotal, grandtotal }) {
   }, [allProducts]);
 
   return (
-    <div>
-      <h2 style={{ textAlign: 'center' }}><b>Products</b></h2>
-      <ul style={{  listStyle: 'none' }}>
+    <div style={{ width: '30%', padding: '10px', margin: '0 auto' }}>
+      <h2 style={{ textAlign: 'center', fontSize: '1.4rem', marginBottom: '20px' }}><b>Products</b></h2>
+      <ul style={{ listStyle: 'none', padding: 0 }}>
         {allProducts.map(product => (
-          <li key={product.pid} className='list-group-item'>
-            
-            <span style={{ display: 'inline-block', width: '110px' }}>{product.pid}</span>
-            <span style={{ display: 'inline-block', width: '110px' }}>{product.pname}</span>
-            <span style={{ display: 'inline-block', width: '110px' }}>{product.price}</span>
-            <span style={{ display: 'inline-block', width: '110px' }}>{product.qtty}</span>
-            
-            <span style={{display:'inline-block', width:'140px'}}>
-  <img src={ product.imageUrl} width='115px' height='100px' alt='product' />
-</span>
-
-
-            <button className='btn btn-warning m-2' onClick={() => addToCart(product)}>Add To Cart</button>
+          <li key={product.pid} className='list-group-item' style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px', borderRadius: '8px', marginBottom: '10px', boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.1)' }}>
+            <div style={{ flex: 1 }}>
+              <p><strong>{product.pname}</strong></p>
+              <p>₹{product.price}</p>
+              <p>Qty: {product.qtty}</p>
+            </div>
+            <div style={{ flex: 1, textAlign: 'center' }}>
+              <img src={product.imageUrl} alt="product" width='100px' height='100px' style={{ objectFit: 'cover', borderRadius: '8px' }} />
+            </div>
+            <button className='btn btn-warning' onClick={() => addToCart(product)} style={{ fontSize: '0.9rem', padding: '5px 10px' }}>Add To Cart</button>
           </li>
         ))}
       </ul>

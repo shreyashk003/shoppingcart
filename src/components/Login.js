@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 
+
 function Login({ setloginstatus, setcustomer, customer, setusertype }) {
   const username = useRef("");
   const password = useRef("");
@@ -59,10 +60,12 @@ function Login({ setloginstatus, setcustomer, customer, setusertype }) {
 
   return (
     <div className="login-container">
-      <h2>Login</h2>
-      <input ref={username} type="text" placeholder="Enter username" className="form-control mb-3" />
-      <input ref={password} type="password" placeholder="Enter password" className="form-control mb-3" />
-      <button onClick={authenticate} className="btn btn-primary">Login</button>
+      <div className="login-box">
+        <h2 className="login-title">SHOPPINGKART Login</h2>
+        <input ref={username} type="text" placeholder="Enter username" className="form-control mb-3 login-input" />
+        <input ref={password} type="password" placeholder="Enter password" className="form-control mb-3 login-input" />
+        <button onClick={authenticate} className="btn btn-primary login-button">Login</button>
+      </div>
     </div>
   );
 }

@@ -22,3 +22,79 @@
     transform: scale(1.02); /* Slight hover effect for depth */
     
 }
+/* Login.css */
+
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+  }
+  
+  .login-box {
+    background-color: white;
+    padding: 40px 30px;
+    border-radius: 10px;
+    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+  }
+  
+  .login-title {
+    font-size: 2rem;
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+    font-weight: 700;
+  }
+  
+  .login-input {
+    font-size: 1rem;
+    padding: 12px 15px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    transition: border-color 0.3s;
+  }
+  
+  .login-input:focus {
+    border-color: #2575fc;
+    outline: none;
+    box-shadow: 0 0 5px rgba(37, 117, 252, 0.5);
+  }
+  
+  .login-button {
+    width: 100%;
+    padding: 12px 15px;
+    font-size: 1rem;
+    border-radius: 5px;
+    background-color: #2575fc;
+    color: white;
+    border: none;
+    transition: background-color 0.3s;
+  }
+  
+  .login-button:hover {
+    background-color: #1ab6d1;
+  }
+  
+  @media (max-width: 768px) {
+    .login-box {
+      padding: 30px 20px;
+    }
+  
+    .login-title {
+      font-size: 1.5rem;
+    }
+  
+    .login-input {
+      font-size: 0.9rem;
+      padding: 10px;
+    }
+  
+    .login-button {
+      padding: 10px;
+      font-size: 0.9rem;
+    }
+  }
+  

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import Header from './Header';
-import 'bootstrap-icons/font/bootstrap-icons.css'
+import 'bootstrap-icons/font/bootstrap-icons.css';
 
 function Cart({ cartitems, setcartitems, grandtotal, setgrandtotal, counter, setcounter }) {
   const [message, setMessage] = useState("");
@@ -58,7 +57,7 @@ function Cart({ cartitems, setcartitems, grandtotal, setgrandtotal, counter, set
     };
 
     // Send the email via the backend
-     axios.post("http://localhost:9000/api/sendemail", payload)
+    axios.post("http://localhost:9000/api/sendemail", payload)
       .then(response => {
         alert("Email sent"); // Alert the user with a success message
       })
@@ -74,32 +73,32 @@ function Cart({ cartitems, setcartitems, grandtotal, setgrandtotal, counter, set
   useEffect(() => {}, [cartitems]);
 
   return (
-    <div>
-
-      <h1 style={{ textAlign: 'center' }}><b>Cart</b></h1>
-      <div style={{ textAlign: 'center', marginBottom: '20px' }}>
-        
-      </div>
-      <ul style={{ listStyle: 'none' }} className='list-group w-100'>
+    <div style={{ width: '30%', padding: '10px', margin: '0 auto' }}>
+      <h2 style={{ textAlign: 'center', fontSize: '1.4rem', marginBottom: '20px' }}><b>Your Cart</b></h2>
+      
+      <ul className='list-group'>
         {cartitems.map(item => (
-          <li key={item.pid} className='list-group-item m-1 w-100'>
-            <span style={{ display: 'inline-block', width: '80px' }}>{item.pid}</span>
-            <span style={{ display: 'inline-block', width: '110px' }}>{item.pname}</span>
-            <span style={{ display: 'inline-block', width: '130px' }}>{item.price} * {item.qtty} = {item.price * item.qtty}</span>
-            <span style={{ display: 'inline-block', width: '120px' }}>
-              <img src={item.imageUrl} width='100px' height='100px' alt='products' />
-            </span>
-            <button className='btn btn-success m-1' onClick={() => increment(item)}>+</button>
-            <button className='btn btn-warning m-1' onClick={() => decrement(item)}>-</button>
-            <button className='btn btn-danger m-1' onClick={() => deleteitem(item)}>Delete</button>
+          <li key={item.pid} className='list-group-item d-flex justify-content-between align-items-center' style={{ padding: '15px', borderRadius: '8px', marginBottom: '10px', boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.1)' }}>
+            <div style={{ flex: 2 }}>
+              <p><strong>{item.pname}</strong></p>
+              <p>₹{item.price} x {item.qtty} = ₹{item.price * item.qtty}</p>
+            </div>
+            <div style={{ flex: 1, textAlign: 'center' }}>
+              <img src={item.imageUrl} width='100px' height='100px' alt='product' style={{ objectFit: 'cover', borderRadius: '8px' }} />
+            </div>
+            <div style={{ flex: 1, textAlign: 'center' }}>
+              <button className='btn btn-success m-1' onClick={() => increment(item)}>+</button>
+              <button className='btn btn-warning m-1' onClick={() => decrement(item)}>-</button>
+              <button className='btn btn-danger m-1' onClick={() => deleteitem(item)}>Delete</button>
+            </div>
           </li>
         ))}
       </ul>
 
-      <br />
-
-      <h3 style={{ textAlign: 'center' }}>Grand total = {grandtotal}</h3>
-      <button onClick={confirmorder} className='btn btn-primary '>Confirm order</button>
+      <div className="text-center mt-3">
+        <h4>Grand Total: ₹{grandtotal}</h4>
+        <button className="btn btn-primary mt-3" onClick={confirmorder}>Confirm Order</button>
+      </div>
     </div>
   );
 }

@@ -73,6 +73,17 @@ app.get('/api/getAllcustomer', async (req, res) => {
         res.status(500).send({ message: "An error occurred", error });
     }
 });
+app.get('/api/getAllorders', async (req, res) => {
+    console.log('i am here')
+    try {
+        const myCollection = myDB.collection("orders");
+        const result = await myCollection.find({}).toArray();
+        res.send(result);
+    } catch (error) {
+        res.status(500).send({ message: "An error occurred", error });
+    }
+});
+
 app.post('/api/getusername', async (req, res) => {
     const username=req.body.username
     try {
@@ -84,6 +95,7 @@ app.post('/api/getusername', async (req, res) => {
         res.status(500).send({ message: "An error occurred", error });
     }
 });
+
 
 // Route to insert customer
 app.post('/api/insertcustomer', async (req, res) => {
@@ -108,6 +120,28 @@ app.post('/api/insertproducts', async (req, res) => {
         res.status(500).send({ message: "An error occurred", error });
     }
 });
+app.post('/api/insertorderitems', async (req, res) => {
+    console.log("hello")
+    const orderitems = req.body;
+    try {
+        const myCollection = myDB.collection("orderitems");
+        await myCollection.insertMany(orderitems);
+        res.send("orderitems inserted");
+    } catch (error) {
+        res.status(500).send({ message: "An error occurred", error });
+    }
+});
+
+app.post('/api/placeOrder', async (req, res) => {
+    const order = req.body;
+    try {
+      const myCollection = myDB.collection("orders");
+      await myCollection.insertOne(order);
+      res.send("Order placed successfully");
+    } catch (error) {
+      res.status(500).send({ message: "Error placing the order", error });
+    }
+  });
 
 // Start the server
 app.listen(port, () => {

@@ -10,6 +10,9 @@ import Addproducts from './components/Addproducts';
 import Sendmail from './components/Sendmail';
 import Counter from './components/Counter';
 import Header from './components/Header';
+import Orders from './components/Orders';
+import Admin from './components/Admin';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 function App() {
   const [isLoggedIn, setLoginstatus] = useState(false); // Tracks login status
@@ -54,13 +57,17 @@ function App() {
                 setcounter={setcounter}
               />
               <Counter counter={counter} setcounter={setcounter} />
+              <Orders 
+              cartitems={cartitems}
+              grandtotal={grandtotal}
+              customer={customer}
+              ></Orders>
             </div></div>
           ) : (
             <div>
-              <Addcustomer />
-              <Addproducts />
-              <Customer />
-              <Sendmail />
+              <Router>
+           <Admin></Admin>
+           </Router>
             </div>
           )}
         </>
