@@ -73,16 +73,81 @@ app.get('/api/getAllcustomer', async (req, res) => {
         res.status(500).send({ message: "An error occurred", error });
     }
 });
-app.get('/api/getAllorders', async (req, res) => {
-    console.log('i am here')
-    try {
+// Route to fetch all orders for a specific customer
+app.post('/api/getcidOrders', async (req, res) => {
+    const cid1 = parseInt(req.body.cid); // Retrieve 'cid' from query parameters
+    console.log('Fetching orders for customer ID:'+ cid1);
+    
         const myCollection = myDB.collection("orders");
-        const result = await myCollection.find({}).toArray();
+        const result = await myCollection.find({cid:cid1}).toArray(); // Find orders for specific customer ID
+        console.log(result)
+        res.send(result); // Send back the orders for that customer
+    
+});
+
+app.post('/api/updateOrderStatus', async (req, res) => {
+    const oid = parseInt(req.body.oid); // Retrieve 'cid' from query parameters
+    console.log('Fetching orders for customer ID:'+ oid);
+    
+        const myCollection = myDB.collection("orders");
+        const result = await myCollection.updateOne({oid:oid},{$set:{ordstatus:"Dispatched"}}); // Find orders for specific customer ID
+        console.log(result)
+        res.send("Order Status Updated"); // Send back the orders for that customer
+    
+});
+
+
+app.post('/api/getorderiddetails', async (req, res) => {
+    const orderid1=parseInt(req.body.oid)
+    console.log("order deatils of customer"+orderid1)
+        const myCollection = myDB.collection("orderitems");
+        const result = await myCollection.find({oid:orderid1}).toArray();
+        console.log(result)
         res.send(result);
+    
+});
+
+app.post('/api/getcustomeriddetails', async (req, res) => {
+    const cusid=parseInt(req.body.cid)
+    console.log("order deatils of customer"+cusid)
+        const myCollection = myDB.collection("customer");
+        const result = await myCollection.find({cid:cusid}).toArray();
+        console.log(result)
+        res.send(result);
+    
+});
+
+
+
+
+
+app.get('/api/getorderidcount', async (req, res) => {
+    console.log('I am here');
+    try {
+        const myCollection = myDB.collection("orderCounters");
+
+     // Increment the 'count' field by 1
+     const result1=await myCollection.find({}).toArray()
+        // Log and send the updated document
+        console.log(result1);
+        res.send(result1);  // result.value contains the updated document
+        let ordcnt=result1[0].orderidcount
+
+        // Find the document and increment the count
+        const result = await myCollection.updateOne({},{$set:{orderidcount:ordcnt+1}}  // Return the updated document, create it if not found
+        );
+
+        
     } catch (error) {
+        console.error("Error:", error);
         res.status(500).send({ message: "An error occurred", error });
     }
 });
+
+
+
+
+
 
 app.post('/api/getusername', async (req, res) => {
     const username=req.body.username

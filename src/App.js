@@ -12,6 +12,7 @@ import Counter from './components/Counter';
 import Header from './components/Header';
 import Orders from './components/Orders';
 import Admin from './components/Admin';
+import Vieworder from './components/Vieworder';
 import { BrowserRouter as Router } from 'react-router-dom';
 
 function App() {
@@ -21,7 +22,9 @@ function App() {
   const [counter, setcounter] = useState(0); // Tracks the item counter (quantity?)
   const [customer, setcustomer] = useState({}); // Holds customer details
   const [usertype, setusertype] = useState("customer"); // Tracks if the user is customer/admin
-
+  const [orderidcount,setorderidcount]=useState(0);
+  const [orderx, setorders] = useState([]);
+  
   return (
     <div className="App">
       {!isLoggedIn ? (
@@ -61,12 +64,16 @@ function App() {
               cartitems={cartitems}
               grandtotal={grandtotal}
               customer={customer}
+              setcartitems={setcartitems}
+              setorderidcount={setorderidcount}
+              orderidcount={orderidcount}
+
               ></Orders>
             </div></div>
           ) : (
             <div>
               <Router>
-           <Admin></Admin>
+           <Admin ></Admin>
            </Router>
             </div>
           )}

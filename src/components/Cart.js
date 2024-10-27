@@ -96,8 +96,6 @@ function Cart({ cartitems, setcartitems, grandtotal, setgrandtotal, counter, set
       </ul>
 
       <div className="text-center mt-3">
-        <h4>Grand Total: ₹{grandtotal}</h4>
-        <button className="btn btn-primary mt-3" onClick={confirmorder}>Confirm Order</button>
       </div>
     </div>
   );

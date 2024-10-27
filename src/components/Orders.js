@@ -1,15 +1,34 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { useRazorpay, RazorpayOrderOptions } from "react-razorpay";
 
-function Orders({ cartitems, grandtotal, clearCart, customer }) {
+
+function Orders({ cartitems, grandtotal, clearCart, customer ,setcartitems}) {
   const [orderConfirmed, setOrderConfirmed] = useState(false); // Track if the order is confirmed
+  const { error, isLoading, Razorpay } = useRazorpay();
+  const [orderidcount,setorderidcount]=useState(0);
+  
 
   // Function to confirm the order and send data to backend
   const confirmOrder = async () => {
+  var ocount=0
+
+ await axios.get("http://localhost:9000/api/getorderidcount")
+.then(response=>{
+  //alert(response.data[0].orderidcount)
+  setorderidcount(response.data[0].orderidcount)
+  ocount=response.data[0].orderidcount
+})
+.catch(err=>{
+  alert(err)
+})
+alert(ocount)
+
     const orderDetails = {
       customerEmail: customer.email || 'shreyashkulkarni03@gmail.com', // This should be dynamic
       items: cartitems.map(item => ({
+        oid:ocount,
         pid: item.pid,
         pname: item.pname,
         price: item.price,
@@ -21,8 +40,10 @@ function Orders({ cartitems, grandtotal, clearCart, customer }) {
       orderDate: new Date().toISOString(),
     };
 
+    
+alert(ocount)
     const orderItems = cartitems.map(item => ({
-      oid: 304, // Example order ID, should be dynamic from backend or state
+      oid: ocount, // Example order ID, should be dynamic from backend or state
       odate: new Date().toISOString(),
       oaddress: 'Tilakwadi', // Example address, should be dynamic
       cid: customer.cid,
@@ -74,6 +95,30 @@ function Orders({ cartitems, grandtotal, clearCart, customer }) {
       console.error('Error during order placement:', error);
       alert('Failed to place the order. Please try again.');
     }
+    const options = {
+      key: "rzp_test_8rMjUVrdOYJdaL",
+      amount: 5000, // Amount in paise
+      currency: "INR",
+      name: "Jfork ts",
+      description: "Test Transaction",
+      order_id: "order_9A33XWu170gUtm", // Generate order_id on server
+      handler: (response) => {
+        console.log(response);
+        alert("Payment Successful!");
+      },
+      prefill: {
+        name: "Shreyash",
+        email: "shreyashkulkarni03@gmail.com",
+        contact: "7795386209",
+      },
+      theme: {
+        color: "#F37254",
+      },
+    };
+
+    const razorpayInstance = new Razorpay(options);
+    razorpayInstance.open();
+    setcartitems([])
   };
 
   return (

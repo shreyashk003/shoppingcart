@@ -1,100 +1,103 @@
-
-/* Main Container for the Shopping Cart */
-.main-container {
-    display: flex;
-    justify-content: flex-start; /* Align items to the left */
-    padding: 10px;
-    width: 100%; /* Ensure the container takes the full width */
-}
-
-/* Cart Styles */
-.cart {
-    background-color: #ffffff;
-    border-radius: 10px;
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08); /* Softer shadow */
-    padding: 30px;
-    width: 90%; /* Adjust width to fit more naturally on the left */
-    max-width: 1000px;
-    transition: transform 0.3s ease;
-}
-
-.cart:hover {
-    transform: scale(1.02); /* Slight hover effect for depth */
-    
-}
-/* Login.css */
-
+/* Main Container with Star Wars Background */
 .login-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
-  }
-  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-size: cover;
+  position: relative;
+}
+
+.login-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.75); /* Dark overlay to give depth */
+  z-index: 1;
+}
+
+.login-box {
+  position: relative;
+  z-index: 2;
+  background-color: rgba(0, 0, 0, 0.85); /* Semi-transparent black box */
+  padding: 40px 30px;
+  border-radius: 10px;
+  box-shadow: 0px 10px 30px rgba(255, 255, 255, 0.2); /* Glowing white shadow */
+  width: 100%;
+  max-width: 400px;
+  border: 2px solid #FFD700; /* Golden border */
+}
+
+/* Star Wars Font */
+@import url('https://fonts.googleapis.com/css2?family=Russo+One&display=swap');
+
+.login-title {
+  font-family: 'Russo One', sans-serif; /* Futuristic Star Wars-like font */
+  font-size: 2rem;
+  text-align: center;
+  color: #FFD700; /* Gold color for the title */
+  margin-bottom: 20px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.login-input {
+  background-color: #111;
+  color: #FFF;
+  font-size: 1rem;
+  padding: 12px 15px;
+  border-radius: 5px;
+  border: 1px solid #FFD700;
+  margin-bottom: 15px;
+  transition: border-color 0.3s, background-color 0.3s;
+  width: 100%;
+}
+
+.login-input:focus {
+  border-color: #FFF;
+  background-color: #222;
+  outline: none;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+.login-button {
+  width: 100%;
+  padding: 12px 15px;
+  font-size: 1rem;
+  border-radius: 5px;
+  background-color: #FFD700; /* Gold button */
+  color: black;
+  border: none;
+  transition: background-color 0.3s, color 0.3s;
+  text-transform: uppercase;
+  font-family: 'Russo One', sans-serif;
+}
+
+.login-button:hover {
+  background-color: #FFF; /* Glowing white on hover */
+  color: black;
+}
+
+/* Responsive Styling */
+@media (max-width: 768px) {
   .login-box {
-    background-color: white;
-    padding: 40px 30px;
-    border-radius: 10px;
-    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 400px;
-  }
-  
-  .login-title {
-    font-size: 2rem;
-    text-align: center;
-    color: #333;
-    margin-bottom: 20px;
-    font-weight: 700;
-  }
-  
-  .login-input {
-    font-size: 1rem;
-    padding: 12px 15px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    transition: border-color 0.3s;
-  }
-  
-  .login-input:focus {
-    border-color: #2575fc;
-    outline: none;
-    box-shadow: 0 0 5px rgba(37, 117, 252, 0.5);
-  }
-  
-  .login-button {
-    width: 100%;
-    padding: 12px 15px;
-    font-size: 1rem;
-    border-radius: 5px;
-    background-color: #2575fc;
-    color: white;
-    border: none;
-    transition: background-color 0.3s;
-  }
-  
-  .login-button:hover {
-    background-color: #1ab6d1;
-  }
-  
-  @media (max-width: 768px) {
-    .login-box {
       padding: 30px 20px;
-    }
-  
-    .login-title {
-      font-size: 1.5rem;
-    }
-  
-    .login-input {
-      font-size: 0.9rem;
-      padding: 10px;
-    }
-  
-    .login-button {
-      padding: 10px;
-      font-size: 0.9rem;
-    }
   }
-  
+
+  .login-title {
+      font-size: 1.5rem;
+  }
+
+  .login-input {
+      font-size: 0.9rem;
+      padding: 10px;
+  }
+
+  .login-button {
+      padding: 10px;
+      font-size: 0.9rem;
+  }
+}
